@@ -14,11 +14,18 @@ const cartRoutes = require('./routes/cartRoutes');
 const paymentRoutes = require('./routes/paymentRoutes');
 const recommendationRoutes = require('./routes/recommendationRoutes');
 const stripe = require('stripe')('YOUR_SECRET_KEY');
-
+const allowedOrigins = [
+  "https://fyp-frontend-ten-tau.vercel.app", // frontend url
+];
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+app.use(
+  cors({
+    origin: allowedOrigins,
+    credentials: true, // Allow cookies or authentication headers
+  })
+);
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI, {
