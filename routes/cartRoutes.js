@@ -9,7 +9,7 @@ const router = express.Router();
 router.get('/', authenticateUser, async (req, res) => {
     try {
         const cart = await Cart.findOne({ user: req.user.id }).populate('items.product', 'name price imageUrl');
-        if (!cart) return res.json({ items: [] });
+        if (!cart) return res.json({ items: [], totalPrice: 0 });
 
         res.json(cart);
     } catch (err) {
